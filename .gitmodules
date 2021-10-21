@@ -1,0 +1,3 @@
+[submodule "submodules/build-utils"]
+	path = submodules/build-utils
+	url = https://github.com/andoalon/build-utils.git
