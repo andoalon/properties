@@ -1,0 +1,147 @@
+﻿---
+
+# Language
+Language: Cpp
+Standard: Cpp11 # Allows clang-format to write things like
+                # std::vector<std::pair<int>> instead of
+                # std::vector<std::unique_ptr<int> >
+
+# Amount of indentation
+AccessModifierOffset: '-4'
+TabWidth: '4'
+IndentWidth: '4'
+ConstructorInitializerIndentWidth: '4'
+ContinuationIndentWidth: '4'
+UseTab: ForIndentation
+ColumnLimit: '120'
+ObjCBlockIndentWidth: '4'
+IndentCaseLabels: 'false'
+
+# Aligning consecutive
+AlignConsecutiveAssignments: 'true'
+AlignConsecutiveDeclarations: 'true'
+
+# Comments
+AlignTrailingComments: 'true'
+SpacesBeforeTrailingComments: '1'
+ReflowComments: 'true'
+
+# Calling functions
+AlignAfterOpenBracket: Align
+AlignOperands: 'true'
+BinPackArguments: 'false'
+PenaltyBreakBeforeFirstCallParameter: '0'
+
+# Declaring functions
+# Function return type in its own line (no please)
+AlwaysBreakAfterReturnType: None
+PenaltyReturnTypeOnItsOwnLine: 666 # Arbitrary big penalty (I really dislike return types in their own line)
+IndentWrappedFunctionNames: 'false' # Indent when putting a function in multiple lines or not
+BinPackParameters: 'false'
+AllowAllParametersOfDeclarationOnNextLine: 'false'
+# Explanation for AllowAllParametersOfDeclarationOnNextLine):
+#   If the function declaration doesn’t fit on a line,
+#   allow putting all parameters of a function declaration
+#   onto the next line even if BinPackParameters is false
+
+# Lists that start with colon
+ConstructorInitializerAllOnOneLineOrOnePerLine: 'false' # Force clang-format to always break
+BreakConstructorInitializers: BeforeComma
+BreakInheritanceList: BeforeComma
+
+# Short stuff
+AllowShortBlocksOnASingleLine: 'false'
+AllowShortCaseLabelsOnASingleLine: 'false'
+AllowShortFunctionsOnASingleLine: None
+AllowShortIfStatementsOnASingleLine: 'false'
+AllowShortLoopsOnASingleLine: 'false'
+
+# Macros
+AlignEscapedNewlines: Right # Align all backslashes at the right of the line
+IndentPPDirectives: AfterHash
+
+# template
+AlwaysBreakTemplateDeclarations: Yes # Must start function declaration in the next line
+SpaceAfterTemplateKeyword: 'true'
+
+# #include
+IncludeBlocks: Preserve
+SortIncludes: 'true'
+# Maybe I should specify my own #include categories
+
+# namespace
+NamespaceIndentation: All
+CompactNamespaces: 'false'
+# Example compact namespaces: namespace gfx { namespace model {
+#     ...
+# }}
+
+# Multiline operations
+AlwaysBreakBeforeMultilineStrings: 'false'
+BreakBeforeBinaryOperators: NonAssignment
+BreakBeforeTernaryOperators: 'false' # true: ? in the same line, then break. false: break, then ?
+BreakStringLiterals: 'true'
+
+# Empty lines
+KeepEmptyLinesAtTheStartOfBlocks: 'false'
+MaxEmptyLinesToKeep: '2'
+
+# Pointers and references
+DerivePointerAlignment: 'false' # Let clang-format guess the alignment we use or not
+PointerAlignment: Middle # I use int * p; and int & i;
+
+# Space before
+SpaceBeforeRangeBasedForLoopColon: 'true'
+SpaceBeforeInheritanceColon: 'true'
+SpaceBeforeCtorInitializerColon: 'true' # Only if it is in the same line
+SpaceBeforeCpp11BracedList: 'false' # I prefer std::vector<int> ints{ 1, 2, 3 }; to std::vector<int> ints { 1, 2, 3 };
+SpaceBeforeAssignmentOperators: 'true' # Who writes int i=5; ????
+SpaceBeforeParens: ControlStatements
+ObjCSpaceBeforeProtocolList: 'true'
+
+# Space in
+SpaceInEmptyParentheses: 'false' # Who writes foo( ); ???
+SpacesInAngles: 'false' # Who writes std::vector< std::string > ???
+SpacesInCStyleCastParentheses: 'false' # Who writes ( int )my_float; ???
+SpacesInContainerLiterals: 'true' # I prefer var arr = [ 1, 2, 3 ]; to var arr = [1, 2, 3]; (other languages)
+SpacesInParentheses: 'false' # I don't really write void foo( int num );
+SpacesInSquareBrackets: 'false' # Who writes array[ i ] ???
+
+# Space after
+SpaceAfterCStyleCast: 'false' # I don't really write (int) my_float;
+ObjCSpaceAfterProperty: 'true'
+DisableFormat: 'false' # Why would I run clang-format with formatting disabled???
+
+# Miscellaneous
+Cpp11BracedListStyle: 'false' # Treat initializer braces differently or not
+JavaScriptQuotes: Double # For me a single quote implies a sigle character
+
+# Braces:
+# Configure each individual brace in BraceWrapping
+BreakBeforeBraces: Custom
+# Control of individual brace wrapping cases
+# (break always before braces except if empty)
+BraceWrapping:
+{
+	# Break all of these
+    AfterClass: 'true'
+    AfterControlStatement: 'true'
+    AfterEnum : 'true'
+    AfterFunction : 'true'
+    AfterNamespace : 'true'
+    AfterStruct : 'true'
+    AfterUnion : 'true'
+    BeforeCatch : 'true'
+    BeforeElse : 'true'
+	
+	# Don't break these
+    AfterExternBlock : 'true'
+    SplitEmptyFunction : 'false'
+    SplitEmptyRecord : 'false'
+    SplitEmptyNamespace : 'false'
+    
+	# I'm not the patch guy
+	IndentBraces : 'false'
+}
+
+...
