@@ -32,9 +32,11 @@ include(common-flags)
 target_common_flags(properties INTERFACE)
 
 find_package(RapidJSON REQUIRED)
+find_package(yaml-cpp REQUIRED)
 target_link_libraries(properties
 	PRIVATE
 		RapidJSON::RapidJSON
+		yaml-cpp::yaml-cpp
 )
 
 target_compile_features(properties
