@@ -15,12 +15,25 @@ include(set-link-time-optimization)
 include(conan-run)
 set(CMAKE_CONFIGURATION_TYPES Debug Release)
 
+option(WITH_IMGUI "Use ImGui" OFF)
+if (WITH_IMGUI)
+	conan_add_remote(
+		NAME bincrafters
+		URL https://bincrafters.jfrog.io/artifactory/api/conan/public-conan
+	)
+endif()
+
+set(conan_options)
+add_conan_bool_option_to_list(conan_options ${WITH_IMGUI} "with_imgui")
+
 conan_run(
+	OPTIONS
+		${conan_options}
 	EXTRA_SETTINGS
 		"compiler.cppstd=20"
 )
 
-option(ANDONI_WARNINGS_AS_ERRORS "Treat warnings as errors" ON)
+option(ANDONI_WARNINGS_AS_ERRORS "Treat warnings as errors" OFF)
 if (ANDONI_WARNINGS_AS_ERRORS)
 	include(warnings-as-errors)
 	add_warnings_as_errors()
@@ -31,6 +44,7 @@ add_executable(properties)
 include(common-flags)
 target_common_flags(properties INTERFACE)
 
+
 find_package(RapidJSON REQUIRED)
 find_package(yaml-cpp REQUIRED)
 target_link_libraries(properties
@@ -38,6 +52,19 @@ target_link_libraries(properties
 		RapidJSON::RapidJSON
 		yaml-cpp::yaml-cpp
 )
+if (WITH_IMGUI)
+	find_package(SFML REQUIRED COMPONENTS window graphics)
+	find_package(ImGui-SFML REQUIRED)
+	target_link_libraries(properties
+		PRIVATE
+			SFML::window
+			SFML::graphics
+			ImGui-SFML::ImGui-SFML
+	)
+
+	target_compile_definitions(properties PRIVATE "WITH_IMGUI")
+endif()
+
 
 target_compile_features(properties
 	PRIVATE
