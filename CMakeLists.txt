@@ -44,6 +44,5 @@ target_compile_features(properties
 
 target_sources(properties
 	PRIVATE
-		"src/utils.hh"
 		"src/main.cc"
 )
