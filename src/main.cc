@@ -186,6 +186,7 @@ concept ConvertibleToYaml = requires(YAML::Node & yaml, T const t)
 	{ to_yaml(yaml, t) };
 };
 
+#ifdef WITH_IMGUI
 //**************************************************************************************************************
 // to_gui
 
@@ -223,6 +224,7 @@ bool to_gui(T & t, char const label[] = nullptr)
 	}
 	return changed;
 }
+#endif
 
 //**************************************************************************************************************
 // Helpers
@@ -464,7 +466,8 @@ int main()
 		ImGui::SFML::Shutdown();
 	}
 #else
-	system("pause");
+	std::cout << "Press enter to continue...";
+	std::cin.get();
 #endif // WITH_IMGUI
 
 	return 0;
