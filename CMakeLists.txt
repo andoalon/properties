@@ -40,6 +40,9 @@ if (ANDONI_WARNINGS_AS_ERRORS)
 endif()
 
 add_executable(properties)
+set_directory_properties(PROPERTIES
+    VS_STARTUP_PROJECT properties
+)
 
 include(common-flags)
 target_common_flags(properties INTERFACE)

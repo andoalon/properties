@@ -29,8 +29,8 @@ class PropertiesConan(conans.ConanFile):
 
     def requirements(self):
         if self.options.with_imgui:
-            self.requires("imgui-sfml/2.2@bincrafters/stable")
+            self.requires("imgui-sfml/2.3@bincrafters/stable")
 
             # The version should ideally match the one used by imgui-sfml
-            self.requires("sfml/2.5.1@bincrafters/stable")
+            self.requires("sfml/2.5.1")
 
