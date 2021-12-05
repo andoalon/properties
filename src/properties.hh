@@ -15,13 +15,13 @@ namespace detail
 	template <typename T>
 	Property<T> make_property(T & variable, std::string_view const name)
 	{
-		return Property<T>(variable, name);
+		return Property<T>{ variable, name };
 	}
 
 	template <typename T>
 	Property<T const> make_property(T const & variable, std::string_view const name)
 	{
-		return Property<T const>(variable, name);
+		return Property<T const>{ variable, name };
 	}
 
 	template <typename T, MemberVisitor<T> F>

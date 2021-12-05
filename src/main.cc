@@ -1,5 +1,17 @@
+#ifdef _MSC_VER
+#	define _SILENCE_CXX17_ITERATOR_BASE_CLASS_DEPRECATION_WARNING // for rapidjson
+#endif
+
 #include "properties.hh"
+
+#ifdef _MSC_VER
+#	pragma warning(push)
+#	pragma warning(disable : 5054) // operator '|': deprecated between enumerations of different types
+#endif
 #include <rapidjson/document.h>
+#ifdef _MSC_VER
+#	pragma warning(pop)
+#endif
 #include <rapidjson/prettywriter.h>
 #include <yaml-cpp/yaml.h>
 #include <cassert>
@@ -68,7 +80,7 @@ bool from_json(rapidjson::Value const & json, T & out)
 
 	return for_each_member(out, [&json](auto & member, std::string_view const name) -> bool
 	{
-		auto const it = json.FindMember(rapidjson::Value(name.data(), name.size()));
+		auto const it = json.FindMember(rapidjson::Value(name.data(), static_cast<rapidjson::SizeType>(name.size())));
 		if (it == json.MemberEnd())
 			return false;
 
@@ -190,17 +202,17 @@ concept ConvertibleToYaml = requires(YAML::Node & yaml, T const t)
 //**************************************************************************************************************
 // to_gui
 
-bool to_gui(int32_t & i, char const label[])
+static bool to_gui(int32_t & i, char const label[])
 {
 	return ImGui::InputInt(label, &i);
 }
 
-bool to_gui(float & f, char const label[])
+static bool to_gui(float & f, char const label[])
 {
 	return ImGui::InputFloat(label, &f);
 }
 
-bool to_gui(bool & b, char const label[])
+static bool to_gui(bool & b, char const label[])
 {
 	return ImGui::Checkbox(label, &b);
 }
@@ -229,7 +241,7 @@ bool to_gui(T & t, char const label[] = nullptr)
 //**************************************************************************************************************
 // Helpers
 
-std::optional<rapidjson::Document> parse_json(std::string_view const contents)
+static std::optional<rapidjson::Document> parse_json(std::string_view const contents)
 {
 	rapidjson::Document doc;
 	doc.Parse(contents.data(), contents.size());
@@ -240,7 +252,7 @@ std::optional<rapidjson::Document> parse_json(std::string_view const contents)
 	return doc;
 }
 
-std::optional<YAML::Node> parse_yaml(std::string_view const contents)
+static std::optional<YAML::Node> parse_yaml(std::string_view const contents)
 {
 	try
 	{

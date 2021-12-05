@@ -45,8 +45,7 @@ set_directory_properties(PROPERTIES
 )
 
 include(common-flags)
-target_common_flags(properties INTERFACE)
-
+target_common_flags(properties PRIVATE)
 
 find_package(RapidJSON REQUIRED)
 find_package(yaml-cpp REQUIRED)
